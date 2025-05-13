@@ -3,7 +3,7 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QSlider>
-
+#include "metronome.h"
 
 class MainWindow : public QMainWindow
 {
@@ -11,19 +11,22 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    ~MainWindow(); //done
 
 private slots:
-    void playClicked();
-    void pauseClicked();
-    void resetClicked();
-    void bpmChanged(int bpm);
+    void playClicked(); //done
+    void pauseClicked(); //done
+    void resetClicked(); //done
+    void bpmChanged(int bpm);// слайдер для ударов в минуту done
     void metronomTick();
 
 private:
+    void UI(); //интерфейс  done
     QPushButton *playButton;
     QPushButton *pauseButton;
     QPushButton *resetButton;
     QSlider *bpmSlider;
+    Metronome *m_metronome;
+    bool m_isRunning = false;
 };
 
