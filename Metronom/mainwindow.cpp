@@ -1,36 +1,17 @@
 #include "mainwindow.h"
 #include <QMenu>
-#include <QMenuBar>
-#include <QStatusBar>
-#include <QToolBar>
-#include <QTextEdit>
-#include <QIcon>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QPushButton>
-#include <QListWidget>
-#include <QLineEdit>
-#include <QFormLayout>
 #include <QLabel>
-#include <QKeyEvent>
-#include <QMoveEvent>
-#include <QCheckBox>
 #include <QTime>
-#include <QFont>
-#include <QStatusBar>
-#include <QInputDialog>
-#include <QProgressBar>
 #include <QTimer>
-#include <QPixmap>
-#include <QSplitter>
-#include <QTableWidget>
-#include <QPainter>
-#include <QPainterPath>
 
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     m_metronome = new Metronome (this);
+    UI();
 }
 
 MainWindow::~MainWindow()
@@ -42,60 +23,50 @@ void MainWindow::UI()
 {
     QWidget *centralWidget = new QWidget(this);
     QVBoxLayout *vbox = new QVBoxLayout(centralWidget);
+    QHBoxLayout *hbox = new QHBoxLayout(this);
 
     //слайдер для ударов в минуту
     bpmSlider  = new QSlider(Qt::Horizontal, this);
     bpmSlider->setRange(40, 250);
-
+    bpmSlider->setValue(40);
     vbox->addWidget(bpmSlider);
+    bpmLabel = new QLabel ("40", this);
+    bpmLabel->setAlignment(Qt::AlignCenter);
+    vbox->addWidget(bpmLabel);
 
     //кнопки
     QHBoxLayout *buttonLayout = new QHBoxLayout();
 
-    playButton = new QPushButton("PLAY", this);
-    pauseButton = new QPushButton("PAUSE", this);
-    resetButton = new QPushButton("RESET", this);
+    playPauseButton = new QPushButton("PLAY", this);
 
-    buttonLayout->addWidget(playButton);
-    buttonLayout->addWidget(pauseButton);
-    buttonLayout->addWidget(resetButton);
+    vbox->addWidget(playPauseButton);
 
     //подключение сигналов
     connect(bpmSlider, &QSlider::valueChanged, this, &MainWindow::bpmChanged);
-    connect(playButton, &QPushButton::clicked, this, &MainWindow::playClicked);
-    connect(pauseButton, &QPushButton::clicked, this, &MainWindow::pauseClicked);
-    connect(resetButton, &QPushButton::clicked, this, &MainWindow::resetClicked);
+    connect(playPauseButton, &QPushButton::clicked, this, &MainWindow::playPauseClicked);
 
     setCentralWidget(centralWidget);
 }
 
-void MainWindow::playClicked()
+void MainWindow::playPauseClicked()
 {
-    if(m_isRunning)
+    if(m_metronome->isRunning())
     {
         m_metronome->play();
+        playPauseButton->setText("Play");
     }
-}
-
-void MainWindow::pauseClicked()
-{
-    if(!m_isRunning)
+    else
     {
         m_metronome->pause();
+        playPauseButton->setText("Pause");
     }
-}
 
-void MainWindow::resetClicked()
-{
-    if(m_isRunning)
-    {
-        m_metronome->pause();
-        m_metronome->play();
-    }
 }
 
 void MainWindow::bpmChanged(int bpm)
 {
+    bpmEdit->setText(QString::number(bpm));
+    bpmLabel->setText(QString::number(bpm));
     m_metronome->setBpm(bpm);
 }
 
