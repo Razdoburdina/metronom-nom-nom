@@ -7,6 +7,7 @@
 #include <QLabel>
 #include "metronome.h"
 
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT

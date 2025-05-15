@@ -2,6 +2,9 @@
 
 #include<QObject>
 #include <QTimer>
+#include <QMediaPlayer>
+#include <QSoundEffect>
+
 
 class Metronome : public QObject
 {
@@ -11,14 +14,14 @@ public:
     void setBpm(int bpm); // установка темпа
     void play(); // запуск
     void pause(); // пауза
-    void reset(); // перезапуск
     bool isRunning(); //состояние
 signals:
     void tick(); // сигнал при ударе
 private:
-    int m_bmp = 100;
+    int m_bpm = 100;
     QTimer *m_timer;
     bool m_isRunning = false;
+    QSoundEffect m_Sound;
 };
 
 

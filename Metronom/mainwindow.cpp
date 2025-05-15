@@ -23,26 +23,23 @@ void MainWindow::UI()
 {
     QWidget *centralWidget = new QWidget(this);
     QVBoxLayout *vbox = new QVBoxLayout(centralWidget);
-    QHBoxLayout *hbox = new QHBoxLayout(this);
+    //QHBoxLayout *hbox = new QHBoxLayout(this);
 
     //слайдер для ударов в минуту
     bpmSlider  = new QSlider(Qt::Horizontal, this);
     bpmSlider->setRange(40, 250);
-    bpmSlider->setValue(40);
+    //bpmSlider->setValue(40);
     vbox->addWidget(bpmSlider);
     bpmLabel = new QLabel ("40", this);
     bpmLabel->setAlignment(Qt::AlignCenter);
     vbox->addWidget(bpmLabel);
 
     //кнопки
-    QHBoxLayout *buttonLayout = new QHBoxLayout();
-
     playPauseButton = new QPushButton("PLAY", this);
-
     vbox->addWidget(playPauseButton);
 
     //подключение сигналов
-    connect(bpmSlider, &QSlider::valueChanged, this, &MainWindow::bpmChanged);
+    connect(bpmSlider, &QSlider::valueChanged, bpmLabel, static_cast<void (QLabel::*)(int)>(&QLabel::setNum));
     connect(playPauseButton, &QPushButton::clicked, this, &MainWindow::playPauseClicked);
 
     setCentralWidget(centralWidget);
@@ -63,14 +60,12 @@ void MainWindow::playPauseClicked()
 
 }
 
-void MainWindow::bpmChanged(int bpm)
-{
-    bpmEdit->setText(QString::number(bpm));
-    bpmLabel->setText(QString::number(bpm));
-    m_metronome->setBpm(bpm);
-}
-
-
+ void MainWindow::bpmChanged(int bpm)
+ {
+     bpmEdit->setText(QString::number(bpm));
+     bpmLabel->setText(QString::number(bpm));
+     m_metronome->setBpm(bpm);
+ }
 
 
 
