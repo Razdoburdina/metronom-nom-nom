@@ -18,6 +18,7 @@ public:
 signals:
     void tick(); // сигнал при ударе
 private:
+    void playSound();
     int m_bpm = 100;
     QTimer *m_timer;
     bool m_isRunning = false;

@@ -47,17 +47,16 @@ void MainWindow::UI()
 
 void MainWindow::playPauseClicked()
 {
-    if(m_metronome->isRunning())
+    if(!m_metronome->isRunning())
     {
         m_metronome->play();
-        playPauseButton->setText("Play");
+        playPauseButton->setText("Pause");
     }
     else
     {
         m_metronome->pause();
-        playPauseButton->setText("Pause");
+        playPauseButton->setText("Play");
     }
-
 }
 
  void MainWindow::bpmChanged(int bpm)

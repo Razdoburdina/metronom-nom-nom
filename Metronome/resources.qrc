@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/new/sound_1">
+        <file>materials/sounds/metronome.tick.wav</file>
+    </qresource>
+</RCC>
