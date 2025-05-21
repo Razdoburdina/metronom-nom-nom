@@ -1,6 +1,6 @@
 #pragma once
 
-#include<QObject>
+#include <QObject>
 #include <QTimer>
 #include <QMediaPlayer>
 #include <QSoundEffect>
@@ -15,11 +15,11 @@ public:
     void play(); // запуск
     void pause(); // пауза
     bool isRunning(); //состояние
-signals:
-    void tick(); // сигнал при ударе
+private slots:
+    void onTimer();
 private:
     void playSound();
-    int m_bpm = 100;
+    int m_interval = 1000;
     QTimer *m_timer;
     bool m_isRunning = false;
     QSoundEffect m_Sound;

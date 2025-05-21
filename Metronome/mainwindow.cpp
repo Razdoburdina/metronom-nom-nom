@@ -40,6 +40,7 @@ void MainWindow::UI()
 
     //подключение сигналов
     connect(bpmSlider, &QSlider::valueChanged, bpmLabel, static_cast<void (QLabel::*)(int)>(&QLabel::setNum));
+    connect(bpmSlider, &QSlider::valueChanged, m_metronome, &Metronome::setBpm);
     connect(playPauseButton, &QPushButton::clicked, this, &MainWindow::playPauseClicked);
 
     setCentralWidget(centralWidget);
