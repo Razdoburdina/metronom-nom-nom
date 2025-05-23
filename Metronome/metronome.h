@@ -4,6 +4,9 @@
 #include <QTimer>
 #include <QMediaPlayer>
 #include <QSoundEffect>
+#include <QPaintEvent>
+#include <QVector>
+#include <QColor>
 
 
 class Metronome : public QObject
@@ -15,6 +18,8 @@ public:
     void play(); // запуск
     void pause(); // пауза
     bool isRunning(); //состояние
+protected:
+    void paintEvent(QPaintEvent *);
 private slots:
     void onTimer();
 private:
@@ -23,6 +28,7 @@ private:
     QTimer *m_timer;
     bool m_isRunning = false;
     QSoundEffect m_Sound;
+
 };
 
 
