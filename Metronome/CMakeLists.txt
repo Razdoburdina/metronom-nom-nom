@@ -27,7 +27,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         metronome.h metronome.cpp
         resources.qrc
         spritesheet.h spritesheet.cpp
-        materials/spriteSheet/sprite.qrc
+        resourses1.qrc
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Metronom APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

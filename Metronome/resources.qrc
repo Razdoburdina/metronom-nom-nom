@@ -2,7 +2,4 @@
     <qresource prefix="/new/sound_1">
         <file>materials/sounds/metronome.tick.wav</file>
     </qresource>
-    <qresource prefix="/">
-        <file>materials/images/spriteSheet.jpg</file>
-    </qresource>
 </RCC>
