@@ -24,6 +24,8 @@ void MainWindow::UI()
     QWidget *centralWidget = new QWidget(this);
     QVBoxLayout *vbox = new QVBoxLayout(centralWidget);
     //QHBoxLayout *hbox = new QHBoxLayout(this);
+    QLabel *label = new QLabel;
+    m_metronome->SetLabel(label);
 
     //слайдер для ударов в минуту
     bpmSlider  = new QSlider(Qt::Horizontal, this);
@@ -38,6 +40,7 @@ void MainWindow::UI()
     playPauseButton = new QPushButton("PLAY", this);
     vbox->addWidget(playPauseButton);
 
+    vbox->addWidget(label);
     //подключение сигналов
     connect(bpmSlider, &QSlider::valueChanged, bpmLabel, static_cast<void (QLabel::*)(int)>(&QLabel::setNum));
     connect(bpmSlider, &QSlider::valueChanged, m_metronome, &Metronome::setBpm);

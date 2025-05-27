@@ -7,7 +7,7 @@ SpriteSheet::SpriteSheet(QObject *parent) : QObject(parent)
     m_totalFrames = 0;
 }
 
-bool SpriteSheet::load(QString &filePath, int frameWidth, int frameHeight)
+bool SpriteSheet::load(const QString &filePath, int frameWidth, int frameHeight)
 {
     if(!m_sheet.load(filePath))
 {
@@ -15,6 +15,8 @@ bool SpriteSheet::load(QString &filePath, int frameWidth, int frameHeight)
 }
     m_frameWidth = frameWidth;
     m_frameHeight = frameHeight;
+
+    m_sheet = m_sheet.scaled(700,262, Qt::KeepAspectRatio);
 
     m_totalFrames = (m_sheet.width() / frameWidth) * (m_sheet.height() / frameHeight); // количество кадров
 
@@ -30,19 +32,8 @@ QImage SpriteSheet::currentFrame()
     return m_sheet.copy(colNum * m_frameWidth, rowNum * m_frameHeight, m_frameWidth, m_frameHeight); //координаты(позиция левого верхнего угла), ширина и высота текущего кадра
 }
 
-/*
-void SpriteSheet::startAnimation(int interval)
-{
-
-}
-
-void SpriteSheet::stopAnimation()
-{
-
-}
-*/
-
 void SpriteSheet::updateFrame()
 {
     m_currentFrame = (m_currentFrame + 1) % m_totalFrames;
+    // emit frameChanged();
 }

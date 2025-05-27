@@ -14,18 +14,19 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();//done
+    ~MainWindow();
 
 private slots:
-    void playPauseClicked(); //done
+    void playPauseClicked();
     void bpmChanged(int bpm);// слайдер для ударов в минуту done
 
 private:
-    void UI(); //интерфейс  done
+    void UI(); //интерфейс
     QPushButton *playPauseButton;
     QLineEdit *bpmEdit;
     QLabel *bpmLabel;
     QSlider *bpmSlider;
     Metronome *m_metronome;
+
 };
 
