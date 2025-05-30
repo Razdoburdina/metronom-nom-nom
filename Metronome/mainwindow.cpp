@@ -1,10 +1,8 @@
 #include "mainwindow.h"
-#include <QMenu>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QLabel>
-#include <QTime>
 #include <QTimer>
 
 
@@ -25,7 +23,7 @@ void MainWindow::UI()
     QVBoxLayout *vbox = new QVBoxLayout(centralWidget);
     //QHBoxLayout *hbox = new QHBoxLayout(this);
     QLabel *label = new QLabel;
-    m_metronome->SetLabel(label);
+    m_metronome->setLabel(label);
 
     //слайдер для ударов в минуту
     bpmSlider  = new QSlider(Qt::Horizontal, this);

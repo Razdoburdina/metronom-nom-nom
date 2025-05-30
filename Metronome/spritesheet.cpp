@@ -5,20 +5,24 @@ SpriteSheet::SpriteSheet(QObject *parent) : QObject(parent)
 {
     m_currentFrame = 0;
     m_totalFrames = 0;
+    m_animationTimer =  new QTimer(this);
+    m_animationTimer->setTimerType(Qt::PreciseTimer);
+    connect(m_animationTimer, &QTimer::timeout, this, &SpriteSheet::onTimer);
 }
 
-bool SpriteSheet::load(const QString &filePath, int frameWidth, int frameHeight)
+bool SpriteSheet::load(const QString &filePath, int columns, int rows)
 {
     if(!m_sheet.load(filePath))
 {
         return false;            
 }
-    m_frameWidth = frameWidth;
-    m_frameHeight = frameHeight;
 
-    m_sheet = m_sheet.scaled(700,262, Qt::KeepAspectRatio);
+    m_sheet = m_sheet.scaled(1500,1000, Qt::KeepAspectRatio);
 
-    m_totalFrames = (m_sheet.width() / frameWidth) * (m_sheet.height() / frameHeight); // количество кадров
+    m_frameWidth = m_sheet.width()/columns;
+    m_frameHeight = m_sheet.height()/rows;
+
+    m_totalFrames = columns *  rows; // количество кадров
 
     return true;
 }
@@ -35,5 +39,30 @@ QImage SpriteSheet::currentFrame()
 void SpriteSheet::updateFrame()
 {
     m_currentFrame = (m_currentFrame + 1) % m_totalFrames;
-    // emit frameChanged();
+}
+
+void SpriteSheet::startAnimation(int interval)
+{
+    //if(!m_animationTimer->isActive())
+    m_currentFrame = 0;
+    m_animationTimer->start(interval/m_totalFrames);
+
+}
+
+void SpriteSheet::stopAnimation()
+{
+    m_animationTimer->stop();
+}
+
+void SpriteSheet::setLabel(QLabel *newLabel)
+{
+    m_animatedLabel = newLabel;
+    if (m_animatedLabel)
+        m_animatedLabel->setPixmap(QPixmap::fromImage(currentFrame()));
+}
+
+void SpriteSheet::onTimer()
+{
+    updateFrame();
+    m_animatedLabel->setPixmap(QPixmap::fromImage(currentFrame()));
 }

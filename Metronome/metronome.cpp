@@ -1,8 +1,5 @@
 #include "metronome.h"
-#include <QSoundEffect>
-#include <QTimer>
 #include <QString>
-#include <QPainter>
 
 Metronome::Metronome(QObject *parent) : QObject(parent)
 {
@@ -12,9 +9,8 @@ Metronome::Metronome(QObject *parent) : QObject(parent)
     m_timer->setTimerType(Qt::PreciseTimer);
     connect(m_timer, &QTimer::timeout, this, &Metronome::onTimer);
 
-    m_SpriteSheet.load(QString(":/images/materials/images/spriteSheet.jpg"), 700/8, 262/2);
-
-    //connect(m_timer, &QTimer::timeout, this, &Metronome::paintEvent);
+    m_SpriteSheet = new SpriteSheet(this);
+    m_SpriteSheet->load(QString(":/images/materials/images/spriteSheet.jpg"), 4, 2);
 
 }
 
@@ -31,13 +27,13 @@ void Metronome::play()
     {
         m_timer->start(m_interval);
     }
-
 }
 
 void Metronome::pause()
 {
     m_isRunning = false;
     m_timer->stop();
+    m_SpriteSheet->stopAnimation();
 }
 
 bool Metronome::isRunning()
@@ -45,24 +41,17 @@ bool Metronome::isRunning()
     return m_isRunning;
 }
 
-void Metronome::SetLabel(QLabel *newLabel)
+void Metronome::setLabel(QLabel *newLabel)
 {
-    m_animatedLabel = newLabel;
-    if (m_animatedLabel)
-        m_animatedLabel->setPixmap(QPixmap::fromImage(m_SpriteSheet.currentFrame()));
-}
-
-void Metronome::paintEvent(/*QPaintEvent *event*/)
-{
-    // Q_UNUSED(event);
-
+    m_SpriteSheet->setLabel(newLabel);
 }
 
 void Metronome::onTimer()
 {
     playSound();
-    m_SpriteSheet.updateFrame();
-    m_animatedLabel->setPixmap(QPixmap::fromImage(m_SpriteSheet.currentFrame()));
+    m_SpriteSheet->startAnimation(m_interval);
+    // spritesheet->PlayAnimation(m_interval);
+    // PlayAnimation запускает таймер или обновляет его интервал
 }
 
 void Metronome::playSound()
