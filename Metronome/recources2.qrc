@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/images2">
+        <file>materials/images/icons8Metronome.png</file>
+    </qresource>
+</RCC>

@@ -50,8 +50,7 @@ void Metronome::onTimer()
 {
     playSound();
     m_SpriteSheet->startAnimation(m_interval);
-    // spritesheet->PlayAnimation(m_interval);
-    // PlayAnimation запускает таймер или обновляет его интервал
+
 }
 
 void Metronome::playSound()
