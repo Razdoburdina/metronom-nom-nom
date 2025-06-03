@@ -21,10 +21,17 @@ private slots:
 private:
     SpriteSheet* m_SpriteSheet;
     void playSound();
+    void playAccentSound();
     int m_interval = 1000;
     QTimer *m_timer;
     bool m_isRunning = false;
-    QSoundEffect m_Sound;
+    QSoundEffect m_Sound;//тик
+    QSoundEffect m_AccentSound;//сильная доля
+    int m_CurrentBeat = 0;//текущая доля
+    int m_TimeSignature = 4;//размер такта
+    void setTimeSignature(int beats);
+
+
 };
 
 

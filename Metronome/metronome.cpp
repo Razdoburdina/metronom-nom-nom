@@ -4,6 +4,8 @@
 Metronome::Metronome(QObject *parent) : QObject(parent)
 {
     m_Sound.setSource(QUrl("qrc:/new/sound_1/materials/sounds/metronome.tick.wav"));
+    m_AccentSound.setSource(QUrl("qrc:/new/sound_2/materials/sounds/metronome.accent.wav"));
+    m_AccentSound.setVolume(1.0f);
 
     m_timer = new QTimer(this);
     m_timer->setTimerType(Qt::PreciseTimer);
@@ -23,6 +25,7 @@ void Metronome::setBpm(int bpm)
 void Metronome::play()
 {
     m_isRunning = true;
+    m_CurrentBeat = 0;
     if(!m_timer->isActive())
     {
         m_timer->start(m_interval);
@@ -48,13 +51,29 @@ void Metronome::setLabel(QLabel *newLabel)
 
 void Metronome::onTimer()
 {
-    playSound();
+    if(m_CurrentBeat == 0)
+    {
+    playAccentSound();
+    } else
+    {
+        playSound();
+    }
     m_SpriteSheet->startAnimation(m_interval);
-
+    m_CurrentBeat = (m_CurrentBeat + 1) % m_TimeSignature;
 }
 
 void Metronome::playSound()
 {
     m_Sound.play();
+}
+
+void Metronome::playAccentSound()
+{
+    m_AccentSound.play();
+}
+
+void Metronome::setTimeSignature(int beats)
+{
+    m_TimeSignature = beats;
 }
 

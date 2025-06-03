@@ -29,6 +29,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         spritesheet.h spritesheet.cpp
         resources1.qrc
         recources2.qrc
+        resources3.qrc
 
     )
 # Define target properties for Android with Qt 6 as:
