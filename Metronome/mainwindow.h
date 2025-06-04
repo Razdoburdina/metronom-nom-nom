@@ -19,14 +19,17 @@ public:
 private slots:
     void playPauseClicked();
     void bpmChanged(int bpm);// слайдер для ударов в минуту done
+    void timeSignatureChanged(int timeSignature);
 
 private:
     void UI(); //интерфейс
     QPushButton *playPauseButton;
     QLineEdit *bpmEdit;
+    QLineEdit *timeSignatureEdit;
     QLabel *bpmLabel;
+    QLabel *timeSignatureLabel;
     QSlider *bpmSlider;
+    QSlider *timeSignatureSlider;
     Metronome *m_metronome;
-
 };
 

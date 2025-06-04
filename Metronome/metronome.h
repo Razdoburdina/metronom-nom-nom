@@ -16,6 +16,7 @@ public:
     void pause(); // пауза
     bool isRunning(); //состояние
     void setLabel(QLabel *newLabel);
+    void setTimeSignature(int beats);
 private slots:
     void onTimer();
 private:
@@ -29,9 +30,6 @@ private:
     QSoundEffect m_AccentSound;//сильная доля
     int m_CurrentBeat = 0;//текущая доля
     int m_TimeSignature = 4;//размер такта
-    void setTimeSignature(int beats);
-
-
 };
 
 

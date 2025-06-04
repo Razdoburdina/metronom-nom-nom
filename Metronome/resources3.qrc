@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/new/sound_2">
+    <qresource prefix="/new/sound2">
         <file>materials/sounds/metronome.accent.wav</file>
     </qresource>
 </RCC>

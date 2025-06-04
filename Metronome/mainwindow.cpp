@@ -5,6 +5,12 @@
 #include <QLabel>
 #include <QTimer>
 
+// поставить по дефолту значения темпа 90 и значения акцента 4. Они должны быть и в UI и в дефолтных переменных классов
+// добавить возможность ввода значения темпа с клавиатуры
+// поставить у ползунка темпа максимальное значение 200
+// сделать кнопку Play/Pause сильно больше по Y
+// добавить текст BPM и акцент над соответствующими  ползунками
+// по коду : попробовать объединить файлы Resources в один (перед этим сделать коммит, чтобы потом откатиться если что)
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
@@ -33,6 +39,15 @@ void MainWindow::UI()
     bpmLabel->setAlignment(Qt::AlignCenter);
     vbox->addWidget(bpmLabel);
 
+    //слайдер для количества долей в такте
+    timeSignatureSlider  = new QSlider(Qt::Horizontal, this);
+    timeSignatureSlider->setRange(1, 8);
+    //bpmSlider->setValue(40);
+    vbox->addWidget(timeSignatureSlider);
+    timeSignatureLabel = new QLabel ("1", this);
+    timeSignatureLabel->setAlignment(Qt::AlignCenter);
+    vbox->addWidget(timeSignatureLabel);
+
     //кнопки
     playPauseButton = new QPushButton("PLAY", this);
     vbox->addWidget(playPauseButton);
@@ -42,6 +57,8 @@ void MainWindow::UI()
     connect(bpmSlider, &QSlider::valueChanged, bpmLabel, static_cast<void (QLabel::*)(int)>(&QLabel::setNum));
     connect(bpmSlider, &QSlider::valueChanged, m_metronome, &Metronome::setBpm);
     connect(playPauseButton, &QPushButton::clicked, this, &MainWindow::playPauseClicked);
+    connect(timeSignatureSlider, &QSlider::valueChanged, timeSignatureLabel, static_cast<void (QLabel::*)(int)>(&QLabel::setNum));
+    connect(timeSignatureSlider, &QSlider::valueChanged, m_metronome, &Metronome::setTimeSignature);
 
     setCentralWidget(centralWidget);
 }
@@ -65,6 +82,13 @@ void MainWindow::playPauseClicked()
      bpmEdit->setText(QString::number(bpm));
      bpmLabel->setText(QString::number(bpm));
      m_metronome->setBpm(bpm);
+ }
+
+ void MainWindow::timeSignatureChanged(int timeSignature)
+ {
+     timeSignatureEdit->setText(QString::number(timeSignature));
+     timeSignatureLabel->setText(QString::number(timeSignature));
+     m_metronome->setTimeSignature(timeSignature);
  }
 
 
