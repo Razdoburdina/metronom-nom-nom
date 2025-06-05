@@ -17,7 +17,7 @@ bool SpriteSheet::load(const QString &filePath, int columns, int rows)
         return false;            
 }
 
-    m_sheet = m_sheet.scaled(1500,1000, Qt::KeepAspectRatio);
+    m_sheet = m_sheet.scaled(1500/2,1000/2, Qt::KeepAspectRatio);
 
     m_frameWidth = m_sheet.width()/columns;
     m_frameHeight = m_sheet.height()/rows;

@@ -25,10 +25,11 @@ private:
     void playAccentSound();
     int m_interval = 1000;
     QTimer *m_timer;
+    int currentBpm = 90;
     bool m_isRunning = false;
     QSoundEffect m_Sound;//тик
     QSoundEffect m_AccentSound;//сильная доля
-    int m_CurrentBeat = 0;//текущая доля
+    int m_CurrentBeat = 4;//текущая доля
     int m_TimeSignature = 4;//размер такта
 };
 

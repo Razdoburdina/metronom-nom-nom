@@ -4,11 +4,10 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QTimer>
+#include <QFont>
 
-// поставить по дефолту значения темпа 90 и значения акцента 4. Они должны быть и в UI и в дефолтных переменных классов
+
 // добавить возможность ввода значения темпа с клавиатуры
-// поставить у ползунка темпа максимальное значение 200
-// сделать кнопку Play/Pause сильно больше по Y
 // добавить текст BPM и акцент над соответствующими  ползунками
 // по коду : попробовать объединить файлы Resources в один (перед этим сделать коммит, чтобы потом откатиться если что)
 
@@ -27,32 +26,38 @@ void MainWindow::UI()
 {
     QWidget *centralWidget = new QWidget(this);
     QVBoxLayout *vbox = new QVBoxLayout(centralWidget);
-    QLabel *label = new QLabel;
-    m_metronome->setLabel(label);
+    //sptitesheet
+    QLabel *spriteSheetLabel = new QLabel;
+    m_metronome->setLabel(spriteSheetLabel);
+    spriteSheetLabel->setAlignment(Qt::AlignCenter);
 
     //слайдер для ударов в минуту
     bpmSlider  = new QSlider(Qt::Horizontal, this);
-    bpmSlider->setRange(40, 250);
-    //bpmSlider->setValue(40);
+    bpmSlider->setRange(40, 200);
+    bpmSlider->setValue(90);
     vbox->addWidget(bpmSlider);
-    bpmLabel = new QLabel ("40", this);
+    bpmLabel = new QLabel ("90", this);
     bpmLabel->setAlignment(Qt::AlignCenter);
     vbox->addWidget(bpmLabel);
 
     //слайдер для количества долей в такте
     timeSignatureSlider  = new QSlider(Qt::Horizontal, this);
     timeSignatureSlider->setRange(1, 8);
-    //bpmSlider->setValue(40);
+    timeSignatureSlider->setValue(4);
     vbox->addWidget(timeSignatureSlider);
-    timeSignatureLabel = new QLabel ("1", this);
+    timeSignatureLabel = new QLabel ("4", this);
     timeSignatureLabel->setAlignment(Qt::AlignCenter);
     vbox->addWidget(timeSignatureLabel);
 
     //кнопки
     playPauseButton = new QPushButton("PLAY", this);
+    playPauseButton->setFixedHeight(100);
     vbox->addWidget(playPauseButton);
+    QFont font = playPauseButton->font();
+    font.setPixelSize(25);
+    playPauseButton->setFont(font);
 
-    vbox->addWidget(label);
+    vbox->addWidget(spriteSheetLabel);
     //подключение сигналов
     connect(bpmSlider, &QSlider::valueChanged, bpmLabel, static_cast<void (QLabel::*)(int)>(&QLabel::setNum));
     connect(bpmSlider, &QSlider::valueChanged, m_metronome, &Metronome::setBpm);

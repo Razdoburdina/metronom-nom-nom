@@ -19,8 +19,10 @@ Metronome::Metronome(QObject *parent) : QObject(parent)
 
 void Metronome::setBpm(int bpm)
 {
+    currentBpm = bpm;
     m_interval = 60000/bpm;
     m_timer->setInterval(m_interval);
+
 }
 
 void Metronome::play()
