@@ -18,7 +18,7 @@ public:
 
 private slots:
     void playPauseClicked();
-    void bpmChanged(int bpm);// слайдер для ударов в минуту done
+    void bpmChanged();// слайдер для ударов в минуту done
     void timeSignatureChanged(int timeSignature);
 
 private:

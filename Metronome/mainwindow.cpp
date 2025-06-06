@@ -5,15 +5,15 @@
 #include <QLabel>
 #include <QTimer>
 #include <QFont>
+#include <QIntValidator>
 
-
-// добавить возможность ввода значения темпа с клавиатуры
-// добавить текст BPM и акцент над соответствующими  ползунками
+const int defaultBpm = 90;
 // по коду : попробовать объединить файлы Resources в один (перед этим сделать коммит, чтобы потом откатиться если что)
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     m_metronome = new Metronome (this);
+    m_metronome->setBpm(defaultBpm);
     UI();
 }
 
@@ -26,28 +26,43 @@ void MainWindow::UI()
 {
     QWidget *centralWidget = new QWidget(this);
     QVBoxLayout *vbox = new QVBoxLayout(centralWidget);
+
     //sptitesheet
     QLabel *spriteSheetLabel = new QLabel;
     m_metronome->setLabel(spriteSheetLabel);
     spriteSheetLabel->setAlignment(Qt::AlignCenter);
 
+
     //слайдер для ударов в минуту
+    QHBoxLayout *bpmLayout = new QHBoxLayout();
     bpmSlider  = new QSlider(Qt::Horizontal, this);
+    bpmSlider->setFixedSize(300, 30);
     bpmSlider->setRange(40, 200);
-    bpmSlider->setValue(90);
-    vbox->addWidget(bpmSlider);
-    bpmLabel = new QLabel ("90", this);
-    bpmLabel->setAlignment(Qt::AlignCenter);
-    vbox->addWidget(bpmLabel);
+    bpmSlider->setValue(defaultBpm);
+    bpmLayout->addWidget(bpmSlider);
+    //vbox->addWidget(bpmSlider);
+
+    //ручной ввод
+    bpmEdit = new QLineEdit ("90", this);
+    bpmEdit->setMaximumWidth(50);
+    QLabel *bpmLabel = new QLabel ("BPM", this);
+    bpmLayout->addWidget(bpmEdit);
+    bpmLayout->addWidget(bpmLabel);
+    vbox->addLayout(bpmLayout);
 
     //слайдер для количества долей в такте
+    QHBoxLayout *timeSignatureLayout = new QHBoxLayout();
     timeSignatureSlider  = new QSlider(Qt::Horizontal, this);
+    timeSignatureSlider->setFixedSize(300, 30);
     timeSignatureSlider->setRange(1, 8);
     timeSignatureSlider->setValue(4);
-    vbox->addWidget(timeSignatureSlider);
+    timeSignatureLayout->addWidget(timeSignatureSlider);
     timeSignatureLabel = new QLabel ("4", this);
+    QLabel *accentLabel = new QLabel ("ACCENT", this);
     timeSignatureLabel->setAlignment(Qt::AlignCenter);
-    vbox->addWidget(timeSignatureLabel);
+    timeSignatureLayout->addWidget(timeSignatureLabel);
+    timeSignatureLayout->addWidget(accentLabel);
+    vbox->addLayout(timeSignatureLayout);
 
     //кнопки
     playPauseButton = new QPushButton("PLAY", this);
@@ -58,8 +73,13 @@ void MainWindow::UI()
     playPauseButton->setFont(font);
 
     vbox->addWidget(spriteSheetLabel);
+
     //подключение сигналов
-    connect(bpmSlider, &QSlider::valueChanged, bpmLabel, static_cast<void (QLabel::*)(int)>(&QLabel::setNum));
+    connect(bpmSlider, &QSlider::valueChanged, bpmEdit, [this](int value)
+            {
+                bpmEdit->setText(QString::number(value));
+            });
+    connect(bpmEdit, &QLineEdit::returnPressed, this, &MainWindow::bpmChanged);
     connect(bpmSlider, &QSlider::valueChanged, m_metronome, &Metronome::setBpm);
     connect(playPauseButton, &QPushButton::clicked, this, &MainWindow::playPauseClicked);
     connect(timeSignatureSlider, &QSlider::valueChanged, timeSignatureLabel, static_cast<void (QLabel::*)(int)>(&QLabel::setNum));
@@ -82,11 +102,21 @@ void MainWindow::playPauseClicked()
     }
 }
 
- void MainWindow::bpmChanged(int bpm)
+ void MainWindow::bpmChanged()
  {
-     bpmEdit->setText(QString::number(bpm));
-     bpmLabel->setText(QString::number(bpm));
-     m_metronome->setBpm(bpm);
+    int bpm = bpmEdit->text().toInt();
+
+    if (bpm < 40)
+    {
+        bpm = 40;
+    }
+    else if (bpm > 200)
+    {
+        bpm = 200;
+    }
+
+    bpmSlider->setValue(bpm);
+    m_metronome->setBpm(bpm);
  }
 
  void MainWindow::timeSignatureChanged(int timeSignature)

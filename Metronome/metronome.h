@@ -23,9 +23,9 @@ private:
     SpriteSheet* m_SpriteSheet;
     void playSound();
     void playAccentSound();
-    int m_interval = 1000;
+    int m_interval;
     QTimer *m_timer;
-    int currentBpm = 90;
+    int currentBpm;
     bool m_isRunning = false;
     QSoundEffect m_Sound;//тик
     QSoundEffect m_AccentSound;//сильная доля
