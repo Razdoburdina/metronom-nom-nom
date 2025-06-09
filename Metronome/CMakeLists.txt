@@ -30,6 +30,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         resources1.qrc
         recources2.qrc
         resources3.qrc
+        recources4.qrc
 
 
     )

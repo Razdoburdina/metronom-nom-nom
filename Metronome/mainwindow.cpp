@@ -6,6 +6,10 @@
 #include <QTimer>
 #include <QFont>
 #include <QIntValidator>
+#include <QMenu>
+#include <QMenuBar>
+#include <QMessageBox>
+#include <QToolBar>
 
 const int defaultBpm = 90;
 // по коду : попробовать объединить файлы Resources в один (перед этим сделать коммит, чтобы потом откатиться если что)
@@ -15,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m_metronome = new Metronome (this);
     m_metronome->setBpm(defaultBpm);
     UI();
+    toolBar();
 }
 
 MainWindow::~MainWindow()
@@ -88,6 +93,17 @@ void MainWindow::UI()
     setCentralWidget(centralWidget);
 }
 
+void MainWindow::toolBar()
+{
+    QPixmap infoIcon(":/new/icon/materials/images/icons8info.png");
+    QToolBar *toolBar = addToolBar("Main toolbar");
+    QAction *info = new QAction(infoIcon, "&Info", this);
+    toolBar->addAction(info);
+    toolBar->addSeparator();
+    connect(info, &QAction::triggered, this, &MainWindow::showInfo);
+}
+
+
 void MainWindow::playPauseClicked()
 {
     if(!m_metronome->isRunning())
@@ -124,6 +140,15 @@ void MainWindow::playPauseClicked()
      timeSignatureEdit->setText(QString::number(timeSignature));
      timeSignatureLabel->setText(QString::number(timeSignature));
      m_metronome->setTimeSignature(timeSignature);
+ }
+
+ void MainWindow::showInfo()
+ {
+     QMessageBox::about(this,"About App",
+                        "Metronome v1.0\n"
+                        "Разработано на Qt/C++\n"
+                        "Автор: Раздобурдина Надежда\n"
+                        "GitHub:https://github.com/Razdoburdina/metronom-nom-nom");
  }
 
 

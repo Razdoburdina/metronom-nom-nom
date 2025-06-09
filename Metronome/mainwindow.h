@@ -20,9 +20,11 @@ private slots:
     void playPauseClicked();
     void bpmChanged();// слайдер для ударов в минуту done
     void timeSignatureChanged(int timeSignature);
+    void showInfo();
 
 private:
     void UI(); //интерфейс
+    void toolBar();
     QPushButton *playPauseButton;
     QLineEdit *bpmEdit;
     QLineEdit *timeSignatureEdit;
