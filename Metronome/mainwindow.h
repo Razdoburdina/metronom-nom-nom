@@ -25,6 +25,7 @@ private slots:
 private:
     void UI(); //интерфейс
     void toolBar();
+    void openGitHubLink();
     QPushButton *playPauseButton;
     QLineEdit *bpmEdit;
     QLineEdit *timeSignatureEdit;

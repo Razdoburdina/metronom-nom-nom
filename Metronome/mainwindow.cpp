@@ -10,6 +10,8 @@
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QToolBar>
+#include <QProcess>
+#include <QIcon>
 
 const int defaultBpm = 90;
 // по коду : попробовать объединить файлы Resources в один (перед этим сделать коммит, чтобы потом откатиться если что)
@@ -18,6 +20,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     m_metronome = new Metronome (this);
     m_metronome->setBpm(defaultBpm);
+    setWindowIcon(QIcon(":/images2/materials/images/icons8Metronome.png"));
+    setWindowTitle("Metronome");
+    resize(400,400);
     UI();
     toolBar();
 }
@@ -103,6 +108,11 @@ void MainWindow::toolBar()
     connect(info, &QAction::triggered, this, &MainWindow::showInfo);
 }
 
+void MainWindow::openGitHubLink()
+{
+    QProcess::startDetached("cmd", {"/c", "start", "https://github.com/Razdoburdina/metronome"});
+}
+
 
 void MainWindow::playPauseClicked()
 {
@@ -144,11 +154,21 @@ void MainWindow::playPauseClicked()
 
  void MainWindow::showInfo()
  {
-     QMessageBox::about(this,"About App",
-                        "Metronome v1.0\n"
-                        "Разработано на Qt/C++\n"
-                        "Автор: Раздобурдина Надежда\n"
-                        "GitHub:https://github.com/Razdoburdina/metronom-nom-nom");
+     QMessageBox msgBox;
+     //QPixmap msgBoxIcon(":/images2/materials/images/icons8Metronome.png");
+     //msgBox.setIconPixmap(msgBoxIcon);
+     msgBox.setWindowIcon(QIcon(":/images2/materials/images/icons8Metronome.png"));
+     msgBox.setWindowTitle("About App");
+     msgBox.setText("Metronome v1.0.\n"
+                    "Developed with Qt/C++.\n"
+                    "Developer: Razdoburdina Nadezhda.\n"
+                    "Do you want to go to the GitHub repository?");
+     msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+
+     if (msgBox.exec() == QMessageBox::Ok)
+     {
+         openGitHubLink();
+     }
  }
 
 
