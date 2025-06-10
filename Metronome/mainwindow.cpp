@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     m_metronome = new Metronome (this);
     m_metronome->setBpm(defaultBpm);
-    setWindowIcon(QIcon(":/images2/materials/images/icons8Metronome.png"));
+    setWindowIcon(QIcon(":/new/image_2/materials/images/icons8Metronome.png"));
     setWindowTitle("Metronome");
     resize(400,400);
     UI();
@@ -100,7 +100,7 @@ void MainWindow::UI()
 
 void MainWindow::toolBar()
 {
-    QPixmap infoIcon(":/new/icon/materials/images/icons8info.png");
+    QPixmap infoIcon(":/new/image_3/materials/images/icons8info.png");
     QToolBar *toolBar = addToolBar("Main toolbar");
     QAction *info = new QAction(infoIcon, "&Info", this);
     toolBar->addAction(info);
@@ -157,7 +157,7 @@ void MainWindow::playPauseClicked()
      QMessageBox msgBox;
      //QPixmap msgBoxIcon(":/images2/materials/images/icons8Metronome.png");
      //msgBox.setIconPixmap(msgBoxIcon);
-     msgBox.setWindowIcon(QIcon(":/images2/materials/images/icons8Metronome.png"));
+     msgBox.setWindowIcon(QIcon(":/new/image_2/materials/images/icons8Metronome.png"));
      msgBox.setWindowTitle("About App");
      msgBox.setText("Metronome v1.0.\n"
                     "Developed with Qt/C++.\n"

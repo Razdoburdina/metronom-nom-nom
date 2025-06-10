@@ -1,5 +1,11 @@
 <RCC>
-    <qresource prefix="/images2">
+    <qresource prefix="/new/image_1">
+        <file>materials/images/spriteSheet.jpg</file>
+    </qresource>
+    <qresource prefix="/new/image_2">
         <file>materials/images/icons8Metronome.png</file>
+    </qresource>
+    <qresource prefix="/new/image_3">
+        <file>materials/images/icons8info.png</file>
     </qresource>
 </RCC>

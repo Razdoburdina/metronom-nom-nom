@@ -4,16 +4,16 @@
 Metronome::Metronome(QObject *parent) : QObject(parent)
 {
     m_Sound.setSource(QUrl("qrc:/new/sound_1/materials/sounds/metronome.tick.wav"));
-    m_AccentSound.setSource(QUrl("qrc:/new/sound2/materials/sounds/metronome.accent.wav"));
-    m_AccentSound.setVolume(0.9f);
-    m_Sound.setVolume(0.3f);
+    m_AccentSound.setSource(QUrl("qrc:/new/sound_2/materials/sounds/metronome.accent.wav"));
+    m_AccentSound.setVolume(0.95f);
+    m_Sound.setVolume(0.2f);
 
     m_timer = new QTimer(this);
     m_timer->setTimerType(Qt::PreciseTimer);
     connect(m_timer, &QTimer::timeout, this, &Metronome::onTimer);
 
     m_SpriteSheet = new SpriteSheet(this);
-    m_SpriteSheet->load(QString(":/images/materials/images/spriteSheet.jpg"), 4, 2);
+    m_SpriteSheet->load(QString(":/new/image_1/materials/images/spriteSheet.jpg"), 4, 2);
 
 }
 

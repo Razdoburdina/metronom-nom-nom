@@ -25,12 +25,14 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         metronome.h metronome.cpp
-        resources.qrc
+
         spritesheet.h spritesheet.cpp
-        resources1.qrc
+
+
+
+
+        resources.qrc
         recources2.qrc
-        resources3.qrc
-        recources4.qrc
 
 
     )
