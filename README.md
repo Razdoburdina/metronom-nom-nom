@@ -1,2 +1,2 @@
-# metronom-nom-nom
- application of metronom for pc
+# metronome
+ application of metronome for pc
