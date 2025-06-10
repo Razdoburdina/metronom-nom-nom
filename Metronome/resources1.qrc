@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/images">
-        <file>materials/images/spriteSheet.jpg</file>
-    </qresource>
-</RCC>

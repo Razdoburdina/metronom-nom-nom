@@ -14,7 +14,6 @@
 #include <QIcon>
 
 const int defaultBpm = 90;
-// по коду : попробовать объединить файлы Resources в один (перед этим сделать коммит, чтобы потом откатиться если что)
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
@@ -41,7 +40,6 @@ void MainWindow::UI()
     QLabel *spriteSheetLabel = new QLabel;
     m_metronome->setLabel(spriteSheetLabel);
     spriteSheetLabel->setAlignment(Qt::AlignCenter);
-
 
     //слайдер для ударов в минуту
     QHBoxLayout *bpmLayout = new QHBoxLayout();
